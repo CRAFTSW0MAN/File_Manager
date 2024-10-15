@@ -1,15 +1,26 @@
-import path from "node:path";
-import fs from "node:fs";
-import url from "node:url";
+import { add } from "./Basic_Operations/add.js";
+import { cat } from "./Basic_Operations/cat.js";
+import { rm } from "./Basic_Operations/rm.js";
 
-export const executeCommand = (command) => {
-  const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
+import { homeDir } from "./../helpers/homeDir.js";
+
+export const executeCommand = (command, dirname) => {
   const [cmd, ...params] = command.split(" ");
   switch (cmd) {
-    case "cat":
+    case "cat": {
+      cat(dirname, params);
       break;
-
+    }
+    case "add": {
+      add(dirname, params);
+      break;
+    }
+    case "rm": {
+      rm(dirname, params);
+      break;
+    }
     default:
-      console.error(`Invalid input: ${command}`);
+      console.error(`Invalid input`);
+      homeDir();
   }
 };
