@@ -4,6 +4,7 @@ import { rm } from "./Basic_Operations/rm.js";
 import { rn } from "./Basic_Operations/rn.js";
 import { mv } from "./Basic_Operations/mv.js";
 import { cp } from "./Basic_Operations/cp.js";
+import {hash} from './Hash_Calculation/hash.js'
 
 import { homeDir } from "./../helpers/homeDir.js";
 
@@ -37,6 +38,10 @@ export const executeCommand = async (command, dirname) => {
     }
     case "mv": {
       await mv(dirname, params);
+      break;
+    }
+    case "hash": {
+      hash(dirname, params);
       break;
     }
     default:
