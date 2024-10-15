@@ -6,15 +6,9 @@ export async function cp(dirname, params) {
   const [oldPath, newPath] = params;
   const filePath = path.join(dirname, oldPath);
   const renameFilePath = path.join(dirname, newPath);
-  await fsPromises
-    .cp(filePath, renameFilePath, {
-      errorOnExist: true,
-      recursive: true,
-      force: false,
-    })
-    .then(() => homeDir())
-    .catch((err) => {
-      console.error("Operation failed");
-      homeDir();
-    });
+  await fsPromises.cp(filePath, renameFilePath, {
+    errorOnExist: true,
+    recursive: true,
+    force: false,
+  });
 }

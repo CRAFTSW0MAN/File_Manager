@@ -1,8 +1,9 @@
 import { add } from "./Basic_Operations/add.js";
 import { cat } from "./Basic_Operations/cat.js";
 import { rm } from "./Basic_Operations/rm.js";
-import {rn} from './Basic_Operations/rn.js';
-import {cp} from './Basic_Operations/cp.js';
+import { rn } from "./Basic_Operations/rn.js";
+import { mv } from "./Basic_Operations/mv.js";
+import { cp } from "./Basic_Operations/cp.js";
 
 import { homeDir } from "./../helpers/homeDir.js";
 
@@ -26,7 +27,16 @@ export const executeCommand = async (command, dirname) => {
       break;
     }
     case "cp": {
-      await cp(dirname, params);
+      await cp(dirname, params)
+        .then(() => homeDir())
+        .catch((err) => {
+          console.error("Operation failed");
+          homeDir();
+        });
+      break;
+    }
+    case "mv": {
+      await mv(dirname, params);
       break;
     }
     default:
