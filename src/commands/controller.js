@@ -1,10 +1,12 @@
 import { add } from "./Basic_Operations/add.js";
 import { cat } from "./Basic_Operations/cat.js";
 import { rm } from "./Basic_Operations/rm.js";
+import {rn} from './Basic_Operations/rn.js';
+import {cp} from './Basic_Operations/cp.js';
 
 import { homeDir } from "./../helpers/homeDir.js";
 
-export const executeCommand = (command, dirname) => {
+export const executeCommand = async (command, dirname) => {
   const [cmd, ...params] = command.split(" ");
   switch (cmd) {
     case "cat": {
@@ -16,7 +18,15 @@ export const executeCommand = (command, dirname) => {
       break;
     }
     case "rm": {
-      rm(dirname, params);
+      await rm(dirname, params);
+      break;
+    }
+    case "rn": {
+      await rn(dirname, params);
+      break;
+    }
+    case "cp": {
+      await cp(dirname, params);
       break;
     }
     default:
