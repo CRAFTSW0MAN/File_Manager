@@ -1,7 +1,7 @@
 import path from "node:path";
 import fsPromises from "node:fs/promises";
 import { homeDir } from "../../helpers/homeDir.js";
-import { correct_Name_File} from './.././../helpers/correct_Name_File.js'
+import { correct_Name_File } from "./.././../helpers/correct_Name_File.js";
 
 export async function rn(dirname, params) {
   const [oldPath, newPath] = params;

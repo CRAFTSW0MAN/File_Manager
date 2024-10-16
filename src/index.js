@@ -6,11 +6,9 @@ import {homeDir} from './helpers/homeDir.js';
 import {exit} from './helpers/exit.js'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-const args = process.argv.find((arg) => arg.startsWith("--username="));
+let args = process.argv.find((arg) => arg.startsWith("--username="));
 if (!args) {
-  console.error("Username is required. Use --username=your_username");
-  homeDir();
-  process.exit(0);
+  args="--username=Anonymous";
 }
 const username = args.split("=")[1];
 const task = readline.createInterface({

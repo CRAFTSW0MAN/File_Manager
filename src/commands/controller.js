@@ -4,7 +4,10 @@ import { rm } from "./Basic_Operations/rm.js";
 import { rn } from "./Basic_Operations/rn.js";
 import { mv } from "./Basic_Operations/mv.js";
 import { cp } from "./Basic_Operations/cp.js";
-import {hash} from './Hash_Calculation/hash.js'
+import {hash} from './Hash_Calculation/hash.js';
+import { ls } from "./Navigation/ls.js";
+import { up } from "./Navigation/up.js";
+import {cd} from './Navigation/cd.js'
 
 import { homeDir } from "./../helpers/homeDir.js";
 
@@ -42,6 +45,22 @@ export const executeCommand = async (command, dirname) => {
     }
     case "hash": {
       hash(dirname, params);
+      break;
+    }
+    // case "compress": {
+    //   compress(dirname, params);
+    //   break;
+    // }
+    case "ls": {
+      ls();
+      break;
+    }
+    case "up": {
+      up();
+      break;
+    }
+    case "cd": {
+      cd(params);
       break;
     }
     default:

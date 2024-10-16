@@ -3,7 +3,7 @@ import fs from "node:fs";
 import { homeDir } from "../../helpers/homeDir.js";
 
 export function cat(dirname, params) {
-  if(params[0]){
+  if (params[0]) {
     const filePath = path.join(dirname, params[0]);
     const readStream = fs.createReadStream(filePath);
     readStream.on("data", (text) => {
