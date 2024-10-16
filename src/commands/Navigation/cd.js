@@ -1,18 +1,16 @@
-import fs from "node:fs";
+import fsPromises from "node:fs/promises";
 import path from "node:path";
 import { homeDir } from "../../helpers/homeDir.js";
 
-export function cd(params) {
-  let resolvedPath= params[0];
+export async function cd(params) {
+  let resolvedPath = params[0];
   try {
-    if(!path.isAbsolute(params[0])){
+    if (!path.isAbsolute(params[0])) {
       resolvedPath = path.resolve(process.cwd(), params[0]);
     }
+    const stat = await fsPromises.stat(resolvedPath);
 
-    if (
-      fs.existsSync(resolvedPath) &&
-      fs.statSync(resolvedPath).isDirectory()
-    ) {
+    if (fsPromises.access(resolvedPath) && stat.isDirectory()) {
       process.chdir(resolvedPath);
       homeDir();
     } else {

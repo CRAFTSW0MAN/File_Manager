@@ -1,7 +1,7 @@
-import fs from "node:fs";
+import fsPromises from "node:fs/promises";
 import { homeDir } from "../../helpers/homeDir.js";
-export function ls() {
-  const files = fs.readdirSync(process.cwd(), { withFileTypes: true });
+export async function ls() {
+  const files = await fsPromises.readdir(process.cwd(), { withFileTypes: true });
   const entries = files.map((file) => {
     return {
       name: file.name,
