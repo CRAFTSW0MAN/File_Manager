@@ -1,20 +1,41 @@
 import path from "node:path";
 import fs from "node:fs";
-import url from "node:url";
-import { createGunzip } from 'zlib';
+import fsPromises from "node:fs/promises";
+import { createBrotliDecompress } from "zlib";
+import { correct_Name_File } from "../../helpers/correct_Name_File.js";
+import { homeDir } from "../../helpers/homeDir.js";
 
-const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-const filePath = path.join(__dirname, "files", "archive.gz");
-const destinationFilePath = path.join(__dirname, "files", "fileToCompress.txt");
+export async function decompress(dirname, params) {
+    const [oldPath, newPath] = params;
+    if (
+        oldPath &&
+        newPath &&
+        correct_Name_File(oldPath) &&
+        correct_Name_File(newPath)
+    ) {
+        const filePath = path.join(dirname, oldPath);
+        const destinationFilePath = path.join(dirname, newPath);
+        try {
+            await fsPromises.access(filePath);
+            const gBrotli = createBrotliDecompress();
+            const readStream = fs.createReadStream(filePath);
+            const writeStream = fs.createWriteStream(destinationFilePath, {
+                flags: "wx",
+            });
 
-const decompress = async () => {
-    const gZip = createGunzip();
-    const readStream = fs.createReadStream(filePath);
-    const writeStream = fs.createWriteStream(destinationFilePath);
+            writeStream.on("close", () => homeDir());
 
-    readStream.pipe(gZip).pipe(writeStream);
-    readStream.on("error", (error) => console.log(`\nFile ${path.basename(filePath)} read operation failed`));
-    writeStream.on("error", (error) => console.log(`\nFile ${path.basename(destinationFilePath)} write operation failed`));
-};
+            gBrotli.on("error", (err) => console.error("Operation failed"));
+            readStream.on("error", (err) => console.error("Operation failed"));
+            writeStream.on("error", (err) => console.error("Operation failed"));
 
-await decompress();
+            readStream.pipe(gBrotli).pipe(writeStream);
+        } catch (error) {
+            console.error("Operation failed0");
+            homeDir();
+        }
+    } else {
+    console.error("Invalid input");
+    homeDir();
+    }
+}

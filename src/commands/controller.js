@@ -8,8 +8,8 @@ import { hash } from "./Hash_Calculation/hash.js";
 import { ls } from "./Navigation/ls.js";
 import { up } from "./Navigation/up.js";
 import { cd } from "./Navigation/cd.js";
-// import { compress } from "./Brotli/compress.js";
-// import {decompress} from './Brotli/compress.js';
+import { compress } from "./Brotli/compress.js";
+import {decompress} from './Brotli/decompress.js';
 import { osSystem } from "./System_Info/os.js";
 import { homeDir } from "./../helpers/homeDir.js";
 
@@ -65,10 +65,14 @@ export const executeCommand = async (command, dirname) => {
       osSystem(params);
       break;
     }
-    // case "compress": {
-    //   compress(dirname, params);
-    //   break;
-    // }
+    case "compress": {
+      compress(dirname, params);
+      break;
+    }
+    case "decompress": {
+      decompress(dirname, params);
+      break;
+    }
     default:
       console.error(`Invalid input`);
       homeDir();
