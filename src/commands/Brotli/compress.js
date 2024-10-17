@@ -4,7 +4,7 @@ import { createBrotliCompress } from "zlib";
 import {correct_Name_File} from '../../helpers/correct_Name_File.js';
 import {homeDir} from '../../helpers/homeDir.js'
 
-// export async function compress(dirname, params) {
+export async function compress(dirname, params) {
 //   if (
 //     oldPath &&
 //     newPath &&
@@ -38,4 +38,4 @@ import {homeDir} from '../../helpers/homeDir.js'
 //     homeDir();
 //   }
  
-// }
+}
