@@ -10,11 +10,6 @@ export async function rm(dirname, params) {
         force: false,
         recursive: true,
       })
-      .then(() => homeDir())
-      .catch((err) => {
-        console.error("Operation failed");
-        homeDir();
-      });
   } else {
     console.error("Invalid input");
     homeDir();

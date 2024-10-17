@@ -31,7 +31,7 @@ export async function decompress(dirname, params) {
 
             readStream.pipe(gBrotli).pipe(writeStream);
         } catch (error) {
-            console.error("Operation failed0");
+            console.error("Operation failed");
             homeDir();
         }
     } else {

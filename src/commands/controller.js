@@ -9,7 +9,7 @@ import { ls } from "./Navigation/ls.js";
 import { up } from "./Navigation/up.js";
 import { cd } from "./Navigation/cd.js";
 import { compress } from "./Brotli/compress.js";
-import {decompress} from './Brotli/decompress.js';
+import { decompress } from "./Brotli/decompress.js";
 import { osSystem } from "./System_Info/os.js";
 import { homeDir } from "./../helpers/homeDir.js";
 
@@ -25,7 +25,10 @@ export const executeCommand = async (command, dirname) => {
       break;
     }
     case "rm": {
-      await rm(dirname, params);
+      await rm(dirname, params).then(()=>homeDir()).catch((error)=> {
+        console.error("Operation failed");
+        homeDir();
+      })
       break;
     }
     case "rn": {
@@ -34,15 +37,10 @@ export const executeCommand = async (command, dirname) => {
     }
     case "cp": {
       await cp(dirname, params)
-        .then(() => homeDir())
-        .catch((err) => {
-          console.error("Operation failed");
-          homeDir();
-        });
       break;
     }
     case "mv": {
-      await mv(dirname, params);
+      await mv(dirname, params)
       break;
     }
     case "hash": {

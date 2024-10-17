@@ -21,7 +21,7 @@ homeDir();
 
 task.on("line", (data) => {
   const command = data.toString().trim().toLowerCase();
-  if (command === "exit") {
+  if (command === ".exit") {
     exit(username);
   } else {
     executeCommand(command, __dirname);
